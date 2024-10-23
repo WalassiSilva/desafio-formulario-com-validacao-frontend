@@ -1,16 +1,11 @@
-
-import './App.css'
-
 function App() {
-
   return (
     <>
       <main>
-        <h1>Seja bem vindo! :)</h1>
-        <p>Terceiro Desafio: Formulário de Cadastro de Membros</p>
+        <h1 className="text-3xl text-red-500">Hello desafio 3</h1>
       </main>
     </>
   );
 }
 
-export default App
+export default App;
