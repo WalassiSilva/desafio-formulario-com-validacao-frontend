@@ -1,7 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useState } from "react";
+import { set, useForm } from "react-hook-form";
 import { z } from "zod";
+import Modal from "./Modal";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -41,14 +42,15 @@ export default function Form() {
     resolver: zodResolver(formSchema),
   });
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const onSubmit = async (data: FormSchemaType) => {
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
     localStorage.setItem("FORM_DATA", JSON.stringify(data));
 
     reset();
-    console.log(data);
-    alert("Cadastro efetuado com sucesso!");
+    setIsModalOpen(true);
   };
 
   return (
@@ -153,9 +155,21 @@ export default function Form() {
         </div>
 
         <button type="submit" disabled={isSubmitting} className="button">
-          Enviar
+          {isSubmitting ? "Cadastrando..." : "Cadastrar"}
         </button>
       </form>
+
+      {isModalOpen && (
+        <div onClick={() => setIsModalOpen(false)}>
+          <Modal />
+        </div>
+      )}
+
+      {Object.keys(errors).length > 0 && (
+        <p className="text-red-600 text-center">
+          Falha ao cadastrar. Verifique os dados informados.
+        </p>
+      )}
     </div>
   );
 }
