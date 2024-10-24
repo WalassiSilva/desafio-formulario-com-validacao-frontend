@@ -44,8 +44,11 @@ export default function Form() {
   const onSubmit = async (data: FormSchemaType) => {
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
+    localStorage.setItem("FORM_DATA", JSON.stringify(data));
+
     reset();
     console.log(data);
+    alert("Cadastro efetuado com sucesso!");
   };
 
   return (
