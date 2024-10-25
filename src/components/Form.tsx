@@ -18,8 +18,11 @@ export default function Form() {
 
   const onSubmit = async (data: FormSchemaType) => {
     await new Promise((resolve) => setTimeout(resolve, 1500));
+    let dataForm = data;
+    const existingData = JSON.parse(localStorage.getItem("FORM_DATA") || "[]");
 
-    localStorage.setItem("FORM_DATA", JSON.stringify(data));
+    existingData.push(dataForm);
+    localStorage.setItem("FORM_DATA", JSON.stringify(existingData));
 
     reset();
     setIsModalOpen(true);
@@ -35,9 +38,7 @@ export default function Form() {
         className="flex flex-col gap-4 rounded-lg border border-zinc-800 py-10 px-5 "
       >
         <div>
-          <label className="px-6 font-bold" htmlFor="nome">
-            Nome
-          </label>
+          <label className="px-6 font-bold">Nome</label>
           <input
             {...register("nome")}
             type="text"
@@ -49,9 +50,7 @@ export default function Form() {
           )}
         </div>
         <div>
-          <label className="px-6 font-bold" htmlFor="email">
-            E-mail
-          </label>
+          <label className="px-6 font-bold">E-mail</label>
           <input
             {...register("email")}
             type="email"
@@ -63,9 +62,7 @@ export default function Form() {
           )}
         </div>
         <div>
-          <label className="px-6 font-bold" htmlFor="telefone">
-            Telefone
-          </label>
+          <label className="px-6 font-bold">Telefone</label>
           <input
             {...register("telefone")}
             type="telefone"
@@ -77,9 +74,7 @@ export default function Form() {
           )}
         </div>
         <div>
-          <label className="px-6 font-bold" htmlFor="cargo">
-            Cargo
-          </label>
+          <label className="px-6 font-bold">Cargo</label>
           <select {...register("cargo")} className="input cursor-pointer">
             {formSchema.shape.cargo.options.map((option) => (
               <option
@@ -97,9 +92,7 @@ export default function Form() {
         </div>
 
         <div>
-          <label className="px-6 font-bold" htmlFor="linkedin">
-            LinkedIn (Opcional)
-          </label>
+          <label className="px-6 font-bold">LinkedIn (Opcional)</label>
           <input
             type="text"
             {...register("linkedin")}
@@ -112,9 +105,7 @@ export default function Form() {
         </div>
 
         <div>
-          <label className="px-6 font-bold" htmlFor="github">
-            GitHub (Opcional)
-          </label>
+          <label className="px-6 font-bold">GitHub (Opcional)</label>
           <input
             type="text"
             {...register("github")}
